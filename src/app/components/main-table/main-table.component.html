@@ -1,0 +1,57 @@
+
+<div class="app">
+  <div class="app__header">
+    <div class="app__header__container">
+      <div class="app__header__title">
+        <img src="/Wikipedia-logo-v2.svg.png">
+        <h1 >Wikipedia Search</h1>
+      </div>
+      <div class="app__header__searchbar">
+        <mat-form-field>
+          <mat-label>Search in Wikipedia</mat-label>
+          <input matInput type="text" [(ngModel)]="searchInput">
+        </mat-form-field>
+        
+        <!-- <mat-form-field class="example-form-field">
+          <mat-label>Items per page</mat-label>
+          <input matInput type="text" [(ngModel)]="showItemsNumber">
+        </mat-form-field> -->
+        
+        <button mat-button (click)="searchData()">
+          Search
+        </button>
+      </div>
+      <div class="app__header__result-info">
+        <span>Displaying {{results.length}} of {{totalHits}} results for <span class="searchmatch">"{{searchTerm}}"</span></span>
+        <button mat-button [disabled]="!isContinue" (click)="loadMoreData()">Show more</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="app__content">
+    <div class="table__header">
+      <div class="table__row">
+        <div class="table__row__title"> Title </div>
+        <div class="table__row__snippet"> Snippet </div>
+        <div class="table__row__timestamp"> Date </div>
+      </div>
+    </div>
+
+    <div class="table__content"> 
+      <div class="table__row" *ngFor="let item of results">
+          <div class="table__row__title">@if(item.sectiontitle){{{item.sectiontitle}}}@else{{{item.title}}}</div>
+          <div class="table__row__snippet">
+            @if(item.sectionsnippet){
+              <div class="table__row__snippet__text" [innerHTML]="item.sectionsnippet"></div>
+            }@else{
+              <div class="table__row__snippet__text" [innerHTML]="item.snippet"></div>
+            }
+            <button mat-icon-button (click)="openDialog(item)">
+              <mat-icon>more_horiz</mat-icon>
+            </button>
+          </div>
+          <div class="table__row__timestamp"> {{ item.timestamp | date: 'mediumDate'}}</div>
+        </div>
+    </div>
+  </div>
+</div>

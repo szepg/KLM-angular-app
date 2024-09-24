@@ -1,0 +1,8 @@
+{
+  "/w/api.php": {
+    "target": "https://en.wikipedia.org",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
